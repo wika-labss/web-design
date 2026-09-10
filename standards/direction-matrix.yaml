@@ -1,0 +1,21 @@
+version: "0.1.0"
+default_skill: minimalist-ui
+
+mappings:
+  b2b_saas: minimalist-ui
+  devtools: minimalist-ui
+  fintech_trust: minimalist-ui
+  luxury_dtc: high-end-visual-design
+  wellness: high-end-visual-design
+  real_estate_premium: high-end-visual-design
+  creative_agency: industrial-brutalist-ui
+  architecture: industrial-brutalist-ui
+  editorial_experimental: industrial-brutalist-ui
+
+tiebreakers:
+  - signal: ["linear-style", "notion-like", "b2b", "claro"]
+    skill: minimalist-ui
+  - signal: ["premium", "luxury", "apple-y", "calm"]
+    skill: high-end-visual-design
+  - signal: ["brutalist", "awwwards", "agencia", "experimental"]
+    skill: industrial-brutalist-ui

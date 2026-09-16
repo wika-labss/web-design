@@ -58,3 +58,6 @@ web-design/
 No debe contener sitios finales ni código de negocio de un cliente. Esos viven en `proyectos/web/{proyecto}/`.
 
 No reemplaza `wika-fundaments` ni `design-system` (apps móviles V3+).
+**Plan de negocio (modelos A/B, infra, costos):** [`docs/plan-de-negocio-web/plan-de-negocio.md`](docs/plan-de-negocio-web/plan-de-negocio.md)
+
+Contenido operativo (auditorías, gates, workflows) — pendiente de redacción.

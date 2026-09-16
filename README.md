@@ -60,4 +60,51 @@ No debe contener sitios finales ni código de negocio de un cliente. Esos viven 
 No reemplaza `wika-fundaments` ni `design-system` (apps móviles V3+).
 **Plan de negocio (modelos A/B, infra, costos):** [`docs/plan-de-negocio-web/plan-de-negocio.md`](docs/plan-de-negocio-web/plan-de-negocio.md)
 
-Contenido operativo (auditorías, gates, workflows) — pendiente de redacción.
+Fase 1: construcción (HTML semántico, sin diseño final).  
+Fase 2: diseño (skills taste-skill según `direction_skill` en `03-module-discovery.md`).
+
+Ciclo oficial: [`workflows/application-lifecycle.md`](workflows/application-lifecycle.md)  
+Instructivo: [`docs/instructivo-nuevos-usuarios.md`](docs/instructivo-nuevos-usuarios.md)  
+Plan de negocio (modelos A/B, infra, costos): [`docs/plan-de-negocio-web/plan-de-negocio.md`](docs/plan-de-negocio-web/plan-de-negocio.md)
+
+---
+
+# Estructura del repositorio
+
+```text
+web-design/
+├── README.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── ROADMAP.md
+├── .cursorrules                 # Quality gates para agentes IA
+├── agents/                      # Roles Fase 1 / Fase 2
+├── docs/                        # Guías y auditorías oficiales
+│   ├── instructivo-nuevos-usuarios.md
+│   ├── documentation.md
+│   ├── auditoria-documentacion.md
+│   ├── auditoria-modulos.md
+│   ├── auditoria-ensamblado.md
+│   ├── auditoria-release-v1.md
+│   └── plan-de-negocio-web/
+├── standards/                   # direction-matrix.yaml
+├── templates/                   # 01–04
+│   ├── 01-problem.md
+│   ├── 02-features.md
+│   ├── 03-module-discovery.md
+│   └── 04-html-design.md
+├── workflows/
+│   └── application-lifecycle.md
+├── skills/                      # Contrato taste-skill
+├── external/taste-skill         # git submodule
+├── scripts/                     # Validación de consistencia documental
+└── tests/
+```
+
+## Responsabilidad de este repositorio
+
+`web-design` contiene las definiciones que permiten construir **sitios web** de manera consistente.
+
+No debe contener sitios finales ni código de negocio de un cliente. Esos viven en `proyectos/web/{proyecto}/`.
+
+No reemplaza `wika-fundaments` ni `design-system` (apps móviles V3+).

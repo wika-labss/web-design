@@ -6,4 +6,6 @@ Complementa [`wika-fundaments`](https://github.com/wika-labss/wika-fundaments) (
 
 **Flujo:** Fase 1 construcción (HTML semántico, sin diseño final) → Fase 2 diseño (skills taste-skill según `direction_skill` en `03-module-discovery.md`).
 
+**Plan de negocio (modelos A/B, infra, costos):** [`docs/plan-de-negocio-web/plan-de-negocio.md`](docs/plan-de-negocio-web/plan-de-negocio.md)
+
 Contenido operativo (auditorías, gates, workflows) — pendiente de redacción.

@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.1] - 2026-09-16
+
+### Added
+
+- Plan de negocio web (modelos A/B, infra, costos, proyección, equipo) en `docs/plan-de-negocio-web/`.
+
 ## [0.1.0] - 2026-09-10
 
 ### Added

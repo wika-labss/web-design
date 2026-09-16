@@ -1,5 +1,9 @@
 # Skills
 
+**Ruta canónica de sitios:** `proyectos/web/{proyecto}/`.
+
+Fase 1 (HTML semántico) no instala skills de dirección. Fase 2 exige `construction_phase_complete: true` y `direction_locked: true` en `idea/`.
+
 ## Submodule taste-skill
 
 Las skills viven en `external/taste-skill/` (git submodule → [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)).

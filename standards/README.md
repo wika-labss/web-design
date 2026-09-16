@@ -2,6 +2,10 @@
 
 Estándares técnicos y visuales para sitios web bajo WIKA.
 
+**Ruta canónica de sitios:** `proyectos/web/{proyecto}/`.
+
+Tokens web (`design-system.md`) y coding standards — pendientes (ver ROADMAP). Hasta entonces, la dirección visual se resuelve solo con esta matriz + MOD-DIR.
+
 ## direction-matrix.yaml
 
 Matriz stub **industria / tipo de negocio → `direction_skill`** (taste-skill). Consumida por el módulo `MOD-DIR` en `templates/03-module-discovery.md`.

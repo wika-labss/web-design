@@ -1,0 +1,115 @@
+repository: wika-labss/web-design
+base_branch: main
+date: "2026-09-16"
+analyzer: Cursor Grok 4.6
+overview:
+  total_found: 12
+  total_fixed: 12
+  deferred: 5
+  test_command: python3 -m unittest tests.test_validate_docs
+bugs:
+  - id: BUG-001
+    severity: CRITICAL
+    category: Functional
+    status: FIXED
+    files:
+      - README.md
+      - templates/README.md
+    description: Ruta applications/proyectos/web/ vs proyectos/web/
+  - id: BUG-002
+    severity: CRITICAL
+    category: Functional
+    status: FIXED
+    files:
+      - workflows/application-lifecycle.md
+      - workflows/README.md
+    description: Sin ciclo web; README reenviaba a fundaments móvil
+  - id: BUG-003
+    severity: HIGH
+    category: Integration
+    status: FIXED
+    files:
+      - docs/auditoria-documentacion.md
+      - docs/auditoria-modulos.md
+      - docs/auditoria-ensamblado.md
+      - docs/auditoria-release-v1.md
+    description: Flags de gate sin checklists oficiales
+  - id: BUG-004
+    severity: HIGH
+    category: Functional
+    status: FIXED
+    files:
+      - .cursorrules
+    description: .cursorrules vacío
+  - id: BUG-005
+    severity: HIGH
+    category: Integration
+    status: FIXED
+    files:
+      - PUSH.md
+    description: PUSH.md clonaba el esqueleto mirror-94c1; bot sigue en 403
+  - id: BUG-006
+    severity: MEDIUM
+    category: Code Quality
+    status: FIXED
+    files:
+      - templates/04-html-design.md
+    description: audit_2_passed en plantilla de Gate 3
+  - id: BUG-007
+    severity: MEDIUM
+    category: Functional
+    status: FIXED
+    files:
+      - templates/01-problem.md
+      - templates/02-features.md
+      - templates/03-module-discovery.md
+      - templates/04-html-design.md
+    description: Stubs vacíos sin RTM/BDD
+  - id: BUG-008
+    severity: MEDIUM
+    category: Functional
+    status: FIXED
+    files:
+      - CONTRIBUTING.md
+    description: Contributing vacío y sin validación
+  - id: BUG-009
+    severity: MEDIUM
+    category: Integration
+    status: FIXED
+    files:
+      - README.md
+      - docs/README.md
+    description: Árbol incompleto; docs sin auditorías
+  - id: BUG-010
+    severity: LOW
+    category: Code Quality
+    status: FIXED
+    files:
+      - scripts/validate_docs.py
+      - .github/workflows/docs-consistency.yml
+    description: Sin validador ni CI
+  - id: BUG-011
+    severity: MEDIUM
+    category: Functional
+    status: FIXED
+    files:
+      - templates/04-html-design.md
+    description: Faltaba audit_3_passed
+  - id: BUG-012
+    severity: LOW
+    category: Functional
+    status: FIXED
+    files:
+      - standards/direction-matrix.yaml
+    description: Sin defaults Fase 2 ni forbidden image-to-code
+deferred:
+  - id: DEF-001
+    description: Plantilla 05-build-plan.md pendiente
+  - id: DEF-002
+    description: Estándares web coding/design-system pendientes
+  - id: DEF-003
+    description: Catálogo de agentes nominativo pendiente
+  - id: DEF-004
+    description: PR #4 wika-fundaments usa applications/
+  - id: DEF-005
+    description: Skills Fase 1 propias pendientes

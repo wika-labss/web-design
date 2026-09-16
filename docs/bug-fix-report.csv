@@ -1,0 +1,18 @@
+BUG-ID,Severity,Category,File,Description,Status,Test Added
+BUG-001,CRITICAL,Functional,README.md,Ruta applications/proyectos/web/ vs proyectos/web/,FIXED,test_bug001_stale_applications_path
+BUG-002,CRITICAL,Functional,workflows/application-lifecycle.md,Sin ciclo web; README reenviaba a fundaments móvil,FIXED,test_canonical_path_in_lifecycle
+BUG-003,HIGH,Integration,docs/auditoria-documentacion.md,Flags de gate sin checklists oficiales,FIXED,test_release_audit_exists_and_is_linked
+BUG-004,HIGH,Functional,.cursorrules,.cursorrules vacío contenido pendiente,FIXED,test_cursorrules_has_gates
+BUG-005,HIGH,Integration,PUSH.md,PUSH.md clonaba el esqueleto mirror-94c1; bot sigue en 403,FIXED,test_bug005_stale_push_clone
+BUG-006,MEDIUM,Code Quality,templates/04-html-design.md,audit_2_passed en plantilla Gate 3,FIXED,test_bug006_audit_2_on_html_template
+BUG-007,MEDIUM,Functional,templates/01-problem.md,Stubs vacíos sin RTM/BDD,FIXED,test_repo_passes_after_fix
+BUG-008,MEDIUM,Functional,CONTRIBUTING.md,Contributing vacío y sin validación,FIXED,test_repo_passes_after_fix
+BUG-009,MEDIUM,Integration,docs/README.md,Árbol incompleto; docs sin auditorías,FIXED,test_release_audit_exists_and_is_linked
+BUG-010,LOW,Code Quality,scripts/validate_docs.py,Sin validador ni CI,FIXED,test_repo_passes_after_fix
+BUG-011,MEDIUM,Functional,templates/04-html-design.md,Faltaba audit_3_passed,FIXED,test_html_template_has_no_audit_2_frontmatter
+BUG-012,LOW,Functional,standards/direction-matrix.yaml,Sin defaults Fase 2 ni forbidden image-to-code,FIXED,test_live_matrix_ok
+DEF-001,LOW,Functional,templates/05-build-plan.md,Plantilla 05 pendiente,DEFERRED,
+DEF-002,LOW,Functional,standards/coding-standards.md,Estándares web pendientes,DEFERRED,
+DEF-003,LOW,Code Quality,agents/README.md,Catálogo nominativo de agentes pendiente,DEFERRED,
+DEF-004,MEDIUM,Integration,wika-fundaments/docs/repositories.md,PR #4 registra web-design con applications/,DEFERRED,
+DEF-005,LOW,Functional,skills/,Skills de construcción Fase 1 propias pendientes,DEFERRED,

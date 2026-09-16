@@ -1,3 +1,19 @@
 # Agents
 
-Definición de agentes IA para construcción web (fase 1) y diseño (fase 2) — pendiente de redacción.
+Roles para construcción web (Fase 1) y diseño (Fase 2). Las fichas nominativas (`web-scribe`, `web-builder`, …) **aún no existen**; no inventar IDs. Hasta entonces, el contrato operativo es `.cursorrules` + `skills/README.md`.
+
+**Ruta canónica de producto:** `proyectos/web/{proyecto}/`.
+
+## Quién corre cuándo
+
+| Fase | Quién | Puede generar HTML/CSS de producción | Skills taste-skill |
+|------|--------|--------------------------------------|--------------------|
+| Docs 01–04 | Contribuidor / agente | No | No |
+| Auditorías (borrador) | Contribuidor / agente | No | No |
+| Gates / **APROBADO** | **Arquitecto (humano)** | No (aprueba) | No |
+| Fase 1 | Contribuidor / agente | Sí, si `ready_for_construction: true` | Ninguna de dirección |
+| Fase 2 | Contribuidor / agente | Sí (look), si `construction_phase_complete` + `direction_locked` | `{direction_skill}` + `design-taste-frontend` o `redesign-existing-projects` |
+
+Ningún agente IA activa flags YAML (`audit_*_passed`, `visual_approval_passed`, `ready_for_construction`, `construction_phase_complete`).
+
+Handoff: ver [`workflows/application-lifecycle.md`](../workflows/application-lifecycle.md).

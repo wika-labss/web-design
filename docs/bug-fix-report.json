@@ -1,0 +1,144 @@
+{
+  "repository": "wika-labss/web-design",
+  "base_branch": "main",
+  "date": "2026-09-16",
+  "analyzer": "Cursor Grok 4.6",
+  "overview": {
+    "total_found": 12,
+    "total_fixed": 12,
+    "deferred": 5,
+    "test_command": "python3 -m unittest tests.test_validate_docs"
+  },
+  "bugs": [
+    {
+      "id": "BUG-001",
+      "severity": "CRITICAL",
+      "category": "Functional",
+      "files": ["README.md", "templates/README.md"],
+      "component": "Ruta de producto",
+      "status": "FIXED",
+      "description": "Doble ruta applications/proyectos/web/ vs proyectos/web/"
+    },
+    {
+      "id": "BUG-002",
+      "severity": "CRITICAL",
+      "category": "Functional",
+      "files": ["workflows/application-lifecycle.md", "workflows/README.md"],
+      "component": "Workflow oficial",
+      "status": "FIXED",
+      "description": "Sin ciclo web; README reenviaba al lifecycle móvil de fundaments"
+    },
+    {
+      "id": "BUG-003",
+      "severity": "HIGH",
+      "category": "Integration",
+      "files": ["docs/auditoria-documentacion.md", "docs/auditoria-modulos.md", "docs/auditoria-ensamblado.md", "docs/auditoria-release-v1.md"],
+      "component": "Auditorías",
+      "status": "FIXED",
+      "description": "Flags de gate en plantillas sin checklists oficiales"
+    },
+    {
+      "id": "BUG-004",
+      "severity": "HIGH",
+      "category": "Functional",
+      "files": [".cursorrules"],
+      "component": "Quality gates",
+      "status": "FIXED",
+      "description": ".cursorrules vacío (contenido pendiente)"
+    },
+    {
+      "id": "BUG-005",
+      "severity": "HIGH",
+      "category": "Integration",
+      "files": ["PUSH.md"],
+      "component": "Bootstrap del repo",
+      "status": "FIXED",
+      "description": "PUSH.md clonaba el esqueleto mirror-94c1; ahora apunta al árbol auditado (bot sigue en 403)"
+    },
+    {
+      "id": "BUG-006",
+      "severity": "MEDIUM",
+      "category": "Code Quality",
+      "files": ["templates/04-html-design.md"],
+      "component": "Plantilla Gate 3",
+      "status": "FIXED",
+      "description": "Frontmatter incluía audit_2_passed, flag del Gate 2"
+    },
+    {
+      "id": "BUG-007",
+      "severity": "MEDIUM",
+      "category": "Functional",
+      "files": ["templates/01-problem.md", "templates/02-features.md", "templates/03-module-discovery.md", "templates/04-html-design.md"],
+      "component": "Plantillas",
+      "status": "FIXED",
+      "description": "Stubs vacíos sin RTM/BDD/contratos parseables"
+    },
+    {
+      "id": "BUG-008",
+      "severity": "MEDIUM",
+      "category": "Functional",
+      "files": ["CONTRIBUTING.md"],
+      "component": "Gobierno del repo",
+      "status": "FIXED",
+      "description": "Contributing pendiente y sin comando de validación"
+    },
+    {
+      "id": "BUG-009",
+      "severity": "MEDIUM",
+      "category": "Integration",
+      "files": ["README.md", "docs/README.md"],
+      "component": "Índice del repositorio",
+      "status": "FIXED",
+      "description": "Árbol incompleto; docs/ no listaba auditorías"
+    },
+    {
+      "id": "BUG-010",
+      "severity": "LOW",
+      "category": "Code Quality",
+      "files": ["scripts/validate_docs.py", ".github/workflows/docs-consistency.yml"],
+      "component": "CI",
+      "status": "FIXED",
+      "description": "Sin validador ni workflow de consistencia documental"
+    },
+    {
+      "id": "BUG-011",
+      "severity": "MEDIUM",
+      "category": "Functional",
+      "files": ["templates/04-html-design.md"],
+      "component": "Gates 3B / Fase 1",
+      "status": "FIXED",
+      "description": "Faltaba audit_3_passed; ready_for_construction sin ensamblado"
+    },
+    {
+      "id": "BUG-012",
+      "severity": "LOW",
+      "category": "Functional",
+      "files": ["standards/direction-matrix.yaml"],
+      "component": "MOD-DIR",
+      "status": "FIXED",
+      "description": "Sin defaults de Fase 2 ni forbidden image-to-code"
+    }
+  ],
+  "deferred": [
+    {
+      "id": "DEF-001",
+      "description": "Plantilla 05-build-plan.md pendiente (ROADMAP)"
+    },
+    {
+      "id": "DEF-002",
+      "description": "standards/coding-standards.md y design-system.md web pendientes"
+    },
+    {
+      "id": "DEF-003",
+      "description": "Catálogo nominativo de agentes web pendiente"
+    },
+    {
+      "id": "DEF-004",
+      "description": "PR #4 de wika-fundaments registra web-design con ruta applications/"
+    },
+    {
+      "id": "DEF-005",
+      "description": "Skills de construcción Fase 1 propias pendientes"
+    }
+  ]
+}

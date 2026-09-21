@@ -64,7 +64,7 @@ export async function handleApi(
       return json({ error: "items_required" }, 400);
     }
     const result = await uploadMenu(env, tenantId, items);
-    return json(result, result.failed === items.length ? 422 : 200);
+    return json({ ...result, success: result.published > 0 }, 200);
   }
 
   const itemMatch = path.match(/^\/api\/items\/([^/]+)$/);

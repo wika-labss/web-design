@@ -51,12 +51,55 @@ function buildItemPayload(env: Env, input: ItemInput) {
   return payload;
 }
 
+const DEFAULT_PICTURE_SOURCE =
+  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Vegemite_on_sesame_bagel.jpg/640px-Vegemite_on_sesame_bagel.jpg";
+
 function defaultFoodAttributes(name: string) {
   return [
     { id: "MANUFACTURER", value_name: "Meli Hub" },
     { id: "BRAND", value_name: "Genérica" },
     { id: "PRODUCT_NAME", value_name: name },
   ];
+}
+
+function isMlPictureReady(source: string): boolean {
+  return source.includes("mlstatic.com") && !source.includes("D_NQ_NP");
+}
+
+export async function uploadPictureFromUrl(
+  env: Env,
+  tenantId: string,
+  source: string
+): Promise<{ source: string }> {
+  if (isMlPictureReady(source)) return { source };
+
+  const uploaded = await meliJson<{ variations?: Array<{ secure_url: string }> }>(
+    env,
+    tenantId,
+    "/pictures",
+    {
+      method: "POST",
+      body: JSON.stringify({ source }),
+    }
+  );
+
+  const secureUrl = uploaded.variations?.[0]?.secure_url;
+  if (!secureUrl) {
+    throw new MeliApiError("No se pudo subir imagen a Mercado Libre", 422, uploaded);
+  }
+  return { source: secureUrl };
+}
+
+async function resolvePictures(
+  env: Env,
+  tenantId: string,
+  pictures: Array<{ source: string }>
+): Promise<Array<{ source: string }>> {
+  const resolved: Array<{ source: string }> = [];
+  for (const pic of pictures) {
+    resolved.push(await uploadPictureFromUrl(env, tenantId, pic.source));
+  }
+  return resolved;
 }
 
 export function normalizeMenuItem(raw: MenuUploadItem, env: Env): ItemInput {
@@ -68,36 +111,41 @@ export function normalizeMenuItem(raw: MenuUploadItem, env: Env): ItemInput {
     available_quantity: Number(raw.available_quantity ?? 1),
     condition: raw.condition ?? "new",
     listing_type_id: raw.listing_type_id,
-    pictures: raw.pictures?.length
-      ? raw.pictures
-      : [
-          {
-            source:
-              "https://http2.mlstatic.com/D_NQ_NP_2X_845183-MLA74385273994_012024-F.webp",
-          },
-        ],
+    pictures: raw.pictures?.length ? raw.pictures : [{ source: DEFAULT_PICTURE_SOURCE }],
     attributes: raw.attributes?.length ? raw.attributes : defaultFoodAttributes(name),
   };
 }
 
+function partitionValidationCause(body: Record<string, unknown>) {
+  const causes = (body.cause as Array<{ type?: string; code?: string; message?: string }>) ?? [];
+  const errors = causes.filter((c) => c.type === "error");
+  const warnings = causes.filter((c) => c.type === "warning");
+  return { errors, warnings };
+}
+
 export async function validateItem(env: Env, tenantId: string, input: ItemInput) {
-  const payload = buildItemPayload(env, input);
+  const pictures = await resolvePictures(env, tenantId, input.pictures ?? [{ source: DEFAULT_PICTURE_SOURCE }]);
+  const payload = buildItemPayload(env, { ...input, pictures });
   const response = await meliFetch(env, tenantId, "/items/validate", {
     method: "POST",
     body: JSON.stringify(payload),
   });
-  if (response.status === 204) return { valid: true, errors: [] };
-  const body = await response.json().catch(() => ({}));
-  return { valid: false, errors: body };
+  if (response.status === 204) return { valid: true, errors: [], warnings: [] };
+  const body = (await response.json().catch(() => ({}))) as Record<string, unknown>;
+  const { errors, warnings } = partitionValidationCause(body);
+  // ML devuelve 400 con warnings de envío aunque POST /items sí funcione
+  const valid = errors.length === 0;
+  return { valid, errors: valid ? warnings : body, warnings };
 }
 
 export async function createItem(env: Env, tenantId: string, input: ItemInput) {
-  const validation = await validateItem(env, tenantId, input);
-  if (!validation.valid) {
-    return { ok: false as const, errors: validation.errors };
-  }
+  const pictures = await resolvePictures(
+    env,
+    tenantId,
+    input.pictures ?? [{ source: DEFAULT_PICTURE_SOURCE }]
+  );
+  const payload = buildItemPayload(env, { ...input, pictures });
 
-  const payload = buildItemPayload(env, input);
   try {
     const item = await meliJson<Record<string, unknown>>(env, tenantId, "/items", {
       method: "POST",

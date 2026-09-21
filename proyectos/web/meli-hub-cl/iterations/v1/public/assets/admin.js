@@ -18,7 +18,15 @@ async function api(path, options = {}) {
     await ensureDevSession();
     return api(path, options);
   }
-  if (!res.ok) throw new Error(data.error || data.message || `HTTP ${res.status}`);
+  if (!res.ok && res.status !== 422) {
+    throw new Error(data.error || data.message || `HTTP ${res.status}`);
+  }
+  if (!res.ok) {
+    const err = new Error(data.error || data.message || `HTTP ${res.status}`);
+    err.data = data;
+    err.status = res.status;
+    throw err;
+  }
   return data;
 }
 
@@ -233,6 +241,16 @@ function parseMeliError(errors) {
   if (errors.message === "seller.unable_to_list") {
     return "Cuenta ML no puede publicar: completa tu dirección en Mercado Libre (address_pending).";
   }
+  const causes = errors.cause;
+  if (Array.isArray(causes)) {
+    const hard = causes.filter((c) => c.type === "error");
+    if (hard.length) {
+      return hard.map((c) => c.message || c.code).join(" | ");
+    }
+  }
+  if (errors.code === "item.pictures.picture_not_found") {
+    return "Imagen no válida. Usa URL pública o deja vacío para subir imagen por defecto.";
+  }
   return JSON.stringify(errors, null, 2);
 }
 
@@ -253,15 +271,19 @@ document.getElementById("menu-upload-form")?.addEventListener("submit", async (e
       method: "POST",
       body: JSON.stringify({ items }),
     });
-    out.textContent = `Publicados: ${result.published} | Fallidos: ${result.failed}\n${JSON.stringify(result.results, null, 2)}`;
+    const lines = (result.results ?? []).map((r) => {
+      if (r.ok) return `✓ ${r.family_name} → ${r.item_id}`;
+      return `✗ ${r.family_name}: ${parseMeliError(r.errors)}`;
+    });
+    out.textContent = `Publicados: ${result.published} | Fallidos: ${result.failed}\n\n${lines.join("\n")}`;
     if (result.published > 0) {
       toast(`Menú: ${result.published} ítem(s) publicados`);
       loadItems(true);
     } else {
-      toast("Menú no publicado — revisa errores");
+      toast("Menú no publicado — revisa errores abajo");
     }
   } catch (err) {
-    out.textContent = err.message;
+    out.textContent = err.data ? JSON.stringify(err.data, null, 2) : err.message;
   }
 });
 

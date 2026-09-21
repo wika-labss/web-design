@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel — Meli Hub CL</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="admin-app">
+  <header role="banner" class="admin-header">
+    <div class="admin-header-inner">
+      <div>
+        <p class="brand">Meli Hub <span class="brand-accent">CL</span></p>
+        <p class="subtitle">Panel ejecutivo · Mercado Libre Chile</p>
+      </div>
+      <div class="connection-badge" id="connection-status" aria-live="polite">
+        <span class="status-dot status-disconnected"></span>
+        <span>Verificando conexión…</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="admin-layout">
+    <nav aria-label="Panel principal" class="admin-nav">
+      <a href="#resumen" class="nav-link active" data-section="resumen">Resumen</a>
+      <a href="#catalogo" class="nav-link" data-section="catalogo">Catálogo</a>
+      <a href="#ventas" class="nav-link" data-section="ventas">Ventas</a>
+      <a href="#inbox" class="nav-link" data-section="inbox">Inbox</a>
+      <a href="#reclamos" class="nav-link" data-section="reclamos">Reclamos</a>
+      <a href="#conexion" class="nav-link" data-section="conexion">Conexión</a>
+    </nav>
+
+    <main class="admin-main">
+      <section id="resumen" class="panel-section" aria-labelledby="resumen-heading">
+        <header class="section-header">
+          <h1 id="resumen-heading">Resumen ejecutivo</h1>
+          <button type="button" class="btn btn-secondary btn-sm" id="refresh-metrics">Actualizar</button>
+        </header>
+        <dl class="kpi-grid" id="kpi-grid">
+          <div class="kpi-card"><dt>Visitas 7d</dt><dd id="kpi-visits">—</dd></div>
+          <div class="kpi-card"><dt>Órdenes 7d</dt><dd id="kpi-orders">—</dd></div>
+          <div class="kpi-card"><dt>Conversión</dt><dd id="kpi-conversion">—</dd></div>
+          <div class="kpi-card"><dt>Ítems activos</dt><dd id="kpi-items">—</dd></div>
+          <div class="kpi-card"><dt>Ingresos 7d (CLP)</dt><dd id="kpi-revenue">—</dd></div>
+          <div class="kpi-card"><dt>Preguntas pendientes</dt><dd id="kpi-questions">—</dd></div>
+        </dl>
+      </section>
+
+      <section id="catalogo" class="panel-section hidden" aria-labelledby="catalogo-heading">
+        <header class="section-header">
+          <h1 id="catalogo-heading">Catálogo Mercado Libre</h1>
+          <button type="button" class="btn btn-secondary btn-sm" id="sync-items">Sincronizar</button>
+        </header>
+
+        <form id="item-form" class="card form-card" aria-labelledby="new-item-heading">
+          <h2 id="new-item-heading">Nueva publicación</h2>
+          <div class="form-grid">
+            <div class="field">
+              <label for="item-title">Título</label>
+              <input id="item-title" name="title" type="text" required maxlength="60">
+            </div>
+            <div class="field">
+              <label for="item-category">Category ID (MLC)</label>
+              <input id="item-category" name="category_id" type="text" required placeholder="MLC1234">
+            </div>
+            <div class="field">
+              <label for="item-price">Precio (CLP)</label>
+              <input id="item-price" name="price" type="number" min="1" required>
+            </div>
+            <div class="field">
+              <label for="item-qty">Stock</label>
+              <input id="item-qty" name="available_quantity" type="number" min="1" value="1" required>
+            </div>
+            <div class="field">
+              <label for="item-condition">Condición</label>
+              <select id="item-condition" name="condition">
+                <option value="new">Nuevo</option>
+                <option value="used">Usado</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="validate-item">Validar</button>
+            <button type="submit" class="btn btn-primary">Publicar en ML</button>
+          </div>
+          <p id="item-form-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="card table-card">
+          <table id="items-table">
+            <caption>Publicaciones sincronizadas</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Título</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="items-body">
+              <tr><td colspan="6" class="empty-row">Sin datos</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ventas" class="panel-section hidden" aria-labelledby="ventas-heading">
+        <header class="section-header">
+          <h1 id="ventas-heading">Ventas</h1>
+        </header>
+        <div class="card table-card">
+          <table id="orders-table">
+            <caption>Órdenes recientes (cache webhook)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Orden</th>
+                <th scope="col">Comprador</th>
+                <th scope="col">Total CLP</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody id="orders-body">
+              <tr><td colspan="4" class="empty-row">Sin órdenes</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="inbox" class="panel-section hidden" aria-labelledby="inbox-heading">
+        <header class="section-header">
+          <h1 id="inbox-heading">Inbox — Preguntas</h1>
+          <button type="button" class="btn btn-secondary btn-sm" id="sync-questions">Sincronizar</button>
+        </header>
+        <div id="questions-list" class="stack-list" aria-live="polite">
+          <p class="empty-row">Sin preguntas</p>
+        </div>
+      </section>
+
+      <section id="reclamos" class="panel-section hidden" aria-labelledby="reclamos-heading">
+        <header class="section-header">
+          <h1 id="reclamos-heading">Reclamos y devoluciones</h1>
+          <button type="button" class="btn btn-secondary btn-sm" id="sync-claims">Sincronizar</button>
+        </header>
+        <div class="card table-card">
+          <table id="claims-table">
+            <caption>Claims post-compra</caption>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Recurso</th>
+              </tr>
+            </thead>
+            <tbody id="claims-body">
+              <tr><td colspan="4" class="empty-row">Sin reclamos</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="conexion" class="panel-section hidden" aria-labelledby="conexion-heading">
+        <header class="section-header">
+          <h1 id="conexion-heading">Conexión Mercado Libre</h1>
+        </header>
+        <div class="card">
+          <p>Vincula tu cuenta seller MLC para habilitar catálogo, webhooks y métricas.</p>
+          <div class="form-actions">
+            <a class="btn btn-primary" href="/oauth/meli/start">Conectar Mercado Libre</a>
+            <button type="button" class="btn btn-secondary" id="dev-session">Sesión dev</button>
+          </div>
+          <dl class="status-dl" id="meli-status-detail"></dl>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <aside id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></aside>
+
+  <script src="/assets/admin.js" type="module"></script>
+</body>
+</html>

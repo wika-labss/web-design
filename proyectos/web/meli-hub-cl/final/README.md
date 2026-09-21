@@ -1,49 +1,66 @@
-# Meli Hub CL — Iteración v1
+# Meli Hub CL — v1
 
-Panel ejecutivo + integración Mercado Libre Chile (MLC).
+Panel ejecutivo + integración **Mercado Libre Chile (MLC)**.
 
-## Requisitos
+**Documentación completa:** [../docs/SETUP-v1.md](../docs/SETUP-v1.md)  
+**Changelog v1:** [../docs/CHANGELOG-v1.md](../docs/CHANGELOG-v1.md)
 
-- Node.js 20+
-- Cuenta Cloudflare (Workers + D1 + R2)
-- App en [developers.mercadolibre.cl/devcenter](https://developers.mercadolibre.cl/devcenter)
+---
 
-## Setup local
-
-```bash
-cd proyectos/web/meli-hub-cl/iterations/v1
-npm install
-npm run db:migrate
-```
-
-## Secretos
+## Levantar en 3 pasos
 
 ```bash
-wrangler secret put MELI_CLIENT_ID
-wrangler secret put MELI_CLIENT_SECRET
-wrangler secret put MELI_REDIRECT_URI
-wrangler secret put SESSION_SECRET
+cd proyectos/web/meli-hub-cl/final
+./scripts/bootstrap.sh          # deps + D1 + .dev.vars template
+# Editar .dev.vars → pegar MELI_CLIENT_SECRET
+./scripts/dev-env.sh            # wrangler + túnel (tmux)
 ```
 
-## Desarrollo
+| URL local | http://127.0.0.1:8787/admin |
+|-----------|------------------------------|
+| Health | http://127.0.0.1:8787/health |
 
-```bash
-npm run dev
-```
+Tras el túnel: actualizar **Redirect URI** y **Webhook** en [devcenter ML](https://developers.mercadolibre.cl/devcenter) y `MELI_REDIRECT_URI` en `.dev.vars`.
 
-- Landing: `http://localhost:8787/`
-- Panel: `http://localhost:8787/admin`
-- Webhook: `POST http://localhost:8787/webhooks/meli`
-- OAuth start: `GET /oauth/meli/start`
+---
 
-## Configurar app ML
+## Credenciales (referencia)
 
-1. Redirect URI: `https://{tu-host}/oauth/meli/callback`
-2. Webhook URL: `https://{tu-host}/webhooks/meli`
-3. Topics: `orders_v2`, `items`, `questions`, `claims`
+| Variable | Valor |
+|----------|--------|
+| `MELI_CLIENT_ID` | `202815009388102` |
+| `MELI_CLIENT_SECRET` | devcenter → Secret Key (en `.dev.vars`) |
+| Seller dev conectado | `3687363797` |
 
-## Documentación WIKA
+Plantilla: [../setup/credentials.env.template](../setup/credentials.env.template)
 
-Ver `../../idea/01-problem.md` … `06-ml-api-contract.md`.
+---
 
-**Nota:** Flags `audit_*_passed` y `ready_for_construction` requieren aprobación del Arquitecto WIKA.
+## Scripts npm
+
+| Comando | Uso |
+|---------|-----|
+| `npm run dev` | Solo wrangler (sin túnel) |
+| `npm run dev:agent` | `./scripts/dev-env.sh` |
+| `npm run db:migrate` | Schema D1 local |
+| `npm run deploy` | Producción Cloudflare |
+| `npm test` | Tests vitest |
+
+---
+
+## API rápida
+
+| Endpoint | Descripción |
+|----------|-------------|
+| `GET /oauth/meli/start` | Iniciar OAuth |
+| `POST /webhooks/meli` | Webhooks ML |
+| `POST /api/menu/upload` | Publicar menú JSON |
+| `POST /api/dev/session` | Sesión panel dev |
+
+Menú ejemplo: `public/fixtures/sample-menu.json`
+
+---
+
+## WIKA
+
+Documentación del tenant: `../idea/` · Auditorías: `../audits/`

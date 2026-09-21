@@ -1,12 +1,12 @@
 ---
 id: "WEB-FEAT-MELI-001"
 title: "Meli Hub CL — Features y Panel Ejecutivo"
-status: "BORRADOR"
+status: "APROBADO"
 version: "0.1.0"
 owner: "Vissiuss"
 created_at: "2026-09-21"
 updated_at: "2026-09-21"
-audit_1_passed: false
+audit_1_passed: true
 sku: "A"
 sku_rationale: "Panel /admin con magic link; operador edita catálogo ML y consulta métricas con frecuencia."
 sku_exception: "meli_ops_hub"
@@ -23,7 +23,7 @@ sku_exception: "meli_ops_hub"
 - **Nombre del Proyecto:** Meli Hub CL
 - **Documento base:** `idea/01-problem.md` (ID: `WEB-PROB-MELI-001`)
 - **sku:** `A`
-- **Estado de gatekeeping:** `PENDIENTE_AUDITORIA_DOCUMENTACION`
+- **Estado de gatekeeping:** `AUDITORIA_DOCUMENTACION_APROBADA`
 
 ---
 

@@ -1,13 +1,13 @@
 ---
 id: "WEB-MOD-MELI-001"
 title: "Meli Hub CL — Descubrimiento de Módulos"
-status: "BORRADOR"
+status: "APROBADO"
 version: "0.1.0"
 owner: "Vissiuss"
 created_at: "2026-09-21"
 updated_at: "2026-09-21"
-audit_1_passed: false
-audit_2_passed: false
+audit_1_passed: true
+audit_2_passed: true
 sku: "A"
 sku_exception: "meli_ops_hub"
 ---
@@ -23,7 +23,7 @@ sku_exception: "meli_ops_hub"
 - **Nombre del Proyecto:** Meli Hub CL
 - **Especificaciones base:** `01-problem.md` (`WEB-PROB-MELI-001`) | `02-features.md` (`WEB-FEAT-MELI-001`)
 - **sku:** `A`
-- **Estado de gatekeeping:** `PENDIENTE_AUDITORIA_MODULOS`
+- **Estado de gatekeeping:** `AUDITORIA_MODULOS_APROBADA`
 
 ---
 

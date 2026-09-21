@@ -10,7 +10,6 @@ visual_approval_passed: false
 audit_3_passed: false
 construction_phase_complete: false
 direction_skill: ""
-sku: ""
 ---
 
 # [04] HTML Estructural, Wireframes y Aprobación Visual
@@ -25,7 +24,6 @@ sku: ""
 
 - **Nombre del Proyecto:** `[Ej. Landing oficios — WIKA]`
 - **Documentos base:** `01-problem.md` | `02-features.md` | `03-module-discovery.md` | `05-build-plan.md`
-- **sku:** `[A \| B]` — copiar de 01/02; B no dibuja `/admin`
 - **Estado de gatekeeping:** `[PENDIENTE_APROBACION_VISUAL]`
 
 `direction_skill` debe coincidir con `MOD-DIR` en `03-module-discovery.md`.
@@ -34,11 +32,10 @@ sku: ""
 
 ## 2. Mapa de vistas (VIEW-XX)
 
-| ID Vista | Ruta / ancla | Módulos | Feature | SKU |
-| :--- | :--- | :--- | :--- | :--- |
-| `VIEW-01` | `/` `#hero` | `MOD-01` | `FEAT-01` | A/B |
-| `VIEW-02` | `/` `#contacto` | `MOD-02` | `FEAT-02` | A/B |
-| `VIEW-03` | `/admin` | `mod-admin` | `FEAT-03` | **solo A** |
+| ID Vista | Ruta / ancla | Módulos | Feature |
+| :--- | :--- | :--- | :--- |
+| `VIEW-01` | `/` `#hero` | `MOD-01` | `FEAT-01` |
+| `VIEW-02` | `/` `#contacto` | `MOD-02` | `FEAT-02` |
 
 ---
 
@@ -54,10 +51,10 @@ Estados: loading (si aplica), success, error, empty.
 
 ## 4. HTML semántico (Fase 1)
 
-Describir landmarks (`header`, `main`, `nav`, `footer`), headings y labels de forms. **Sin** look final. Respetar `sku`: B sin markup de panel.
+Describir landmarks (`header`, `main`, `nav`, `footer`), headings y labels de forms. **Sin** look final.
 
 - [ ] `ready_for_construction` se activa en **05**, tras Gate 3A + 3B
-- [ ] `construction_phase_complete` cuando el HTML de `iterations/vN/` cumple este documento **y** el SKU
+- [ ] `construction_phase_complete` cuando el HTML de `iterations/vN/` cumple este documento
 - [ ] Fase 2 (taste-skill) **prohibida** hasta `construction_phase_complete: true`
 
 ---

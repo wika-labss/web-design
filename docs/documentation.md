@@ -4,13 +4,11 @@
 
 Definir las reglas de documentación de sitios web WIKA. La documentación define el producto; el HTML es consecuencia.
 
-El plan de negocio (`docs/plan-de-negocio-web/` + `standards/sku-contract.yaml`) define si el producto es SKU **A** o **B** y qué stack es legal.
-
 ---
 
 ## Fuente oficial de verdad
 
-La carpeta `idea/` de cada sitio es la fuente de verdad del **tenant**. El SKU y el stack no se inventan: se copian del contrato.
+La carpeta `idea/` de cada sitio es la fuente de verdad.
 
 **Ruta canónica:** `proyectos/web/{proyecto}/`.
 
@@ -28,10 +26,13 @@ proyectos/web/{proyecto}/
 │   ├── auditoria-ensamblado.md
 │   └── auditoria-release-v1.md
 ├── iterations/
-└── final/
+├── final/
+└── negocio/       ← opcional; informe consultor, NO es gate
 ```
 
-Las **checklists** oficiales viven en `web-design/docs/`. En `audits/` del proyecto solo se registra el veredicto.
+Las **checklists** oficiales viven en `web-design/docs/`. En `audits/` del proyecto solo se registra el veredicto de gates.
+
+`negocio/informe-estado-negocio.md` es consultoría comercial ([`plan-de-negocio-web/`](plan-de-negocio-web/README.md)). No es fuente de verdad del producto y no bloquea construcción.
 
 No usar `applications/` como raíz. `proyectos/app/` es el portafolio móvil.
 

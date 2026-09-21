@@ -105,17 +105,18 @@ class LiveRepoTests(unittest.TestCase):
         build = (ROOT / "templates/05-build-plan.md").read_text(encoding="utf-8")
         self.assertIn("ready_for_construction", build)
 
-    def test_problem_and_features_have_sku(self) -> None:
-        for rel in ("templates/01-problem.md", "templates/02-features.md"):
-            text = (ROOT / rel).read_text(encoding="utf-8")
-            self.assertRegex(text, r"(?m)^sku:", msg=rel)
+    def test_problem_and_features_have_site_type_not_sku_gate(self) -> None:
         feat = (ROOT / "templates/02-features.md").read_text(encoding="utf-8")
+        self.assertRegex(feat, r"(?m)^site_type:")
         self.assertNotIn("landing-B | sitio-A | portfolio", feat)
+        problem = (ROOT / "templates/01-problem.md").read_text(encoding="utf-8")
+        self.assertNotRegex(problem, r"(?m)^sku:")
 
     def test_lifecycle_includes_05_before_assembly(self) -> None:
         text = (ROOT / "workflows/application-lifecycle.md").read_text(encoding="utf-8")
         self.assertIn("05-build-plan.md", text)
-        self.assertIn("sku-contract.yaml", text)
+        self.assertIn("Consultoría de negocio", text)
+        self.assertIn("quality gate", text)
 
     def test_cursorrules_has_gates(self) -> None:
         text = (ROOT / ".cursorrules").read_text(encoding="utf-8")

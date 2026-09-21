@@ -10,18 +10,20 @@ Guías, reglas y auditorías del flujo web-design.
 |-----------|-----------|
 | [instructivo-nuevos-usuarios.md](instructivo-nuevos-usuarios.md) | Cómo empieza y termina un sitio |
 | [documentation.md](documentation.md) | Fuente de verdad `idea/` + `audits/` |
-| [auditoria-documentacion.md](auditoria-documentacion.md) | Gate 1 + SKU A\|B |
-| [auditoria-modulos.md](auditoria-modulos.md) | Gate 2 + MOD-DIR; admin solo A |
-| [auditoria-ensamblado.md](auditoria-ensamblado.md) | Gate 3B (03+04+05 vs contrato) |
-| [auditoria-release-v1.md](auditoria-release-v1.md) | Cierre a `final/` vs SKU |
+| [auditoria-documentacion.md](auditoria-documentacion.md) | Gate 1 |
+| [auditoria-modulos.md](auditoria-modulos.md) | Gate 2 + MOD-DIR |
+| [auditoria-ensamblado.md](auditoria-ensamblado.md) | Gate 3B (03+04+05) |
+| [auditoria-release-v1.md](auditoria-release-v1.md) | Cierre a `final/` |
 
-## Plan de negocio
+## Plan de negocio (consultor)
 
-Sitios para pymes en Chile: dos SKUs (landing B y sitio editable A), una plataforma.
+Verificador paralelo: **no** entra a Fase 1 ni Fase 2. Solo genera un informe de estado.
 
-- [Índice plan de negocio](plan-de-negocio-web/README.md)
-- [Tesis](plan-de-negocio-web/plan-de-negocio.md)
-- Contrato: [`standards/sku-contract.yaml`](../standards/sku-contract.yaml)
+- [Rol y contrato](plan-de-negocio-web/README.md)
+- [Cómo consultar](plan-de-negocio-web/consulta-negocio.md)
+- [Plantilla de informe](plan-de-negocio-web/informe-estado-negocio.md)
+- [Criterio comercial A/B](plan-de-negocio-web/plan-de-negocio.md)
+- Criterio machine-readable (solo consultor): [`standards/sku-contract.yaml`](../standards/sku-contract.yaml)
 
 ## Informe de auditoría de consistencia
 

@@ -7,12 +7,11 @@
 - [x] Ruta canónica `proyectos/web/{proyecto}/`
 - [x] Validador documental + CI
 
-## Hecho (plan de negocio A/B)
+## Hecho (consultor de negocio)
 
-- [x] Contrato `standards/sku-contract.yaml`
-- [x] Clasificación SKU en Gate 1 (plantillas 01–02)
-- [x] Plantilla `05-build-plan.md` (hoja de ruta, deps, stack)
-- [x] Release y ensamblado validan construcción vs SKU
+- [x] Pack `docs/plan-de-negocio-web/` (consulta + informe)
+- [x] `standards/sku-contract.yaml` como criterio del consultor (no es gate)
+- [x] Plantilla `05-build-plan.md` (`ready_for_construction`)
 
 ## Pendiente
 

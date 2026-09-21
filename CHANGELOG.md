@@ -6,18 +6,15 @@ Registro de cambios relevantes de `web-design`.
 
 ### Added
 
-- Contrato operativo A/B: `standards/sku-contract.yaml` + índice `docs/plan-de-negocio-web/README.md`.
-- Plantilla `templates/05-build-plan.md` (hoja de ruta de instancia, dependencias, stack canónico).
-- `sku: A|B` y rúbrica en 01/02; Gate 1, ensamblado y release validan contra el plan de negocio.
+- Plantilla `templates/05-build-plan.md` (`ready_for_construction` vive ahí).
+- Pack consultor de negocio: `consulta-negocio.md`, `informe-estado-negocio.md`; `sku-contract.yaml` queda como criterio del consultor, no del builder.
 
 ### Changed
 
 - `ready_for_construction` se mueve de 04 a 05 (paridad fundaments).
-- Lifecycle y `.cursorrules`: 05 entra al Gate 3B; lectura incluye el plan de negocio.
+- Plan de negocio A/B **sale del flujo de creación**: no es gate de 01–05, Fase 1, Fase 2 ni release. Único output: `negocio/informe-estado-negocio.md`. `site_type` técnico: `landing | multipage | cms`.
 
-## Unreleased (auditoría de consistencia)
-
-### Added
+### Added (auditoría de consistencia)
 
 - Quality gates en `.cursorrules` (Fase 1 HTML / Fase 2 taste-skill).
 - `workflows/application-lifecycle.md` — ciclo web (no el flujo móvil de fundaments).
@@ -32,7 +29,7 @@ Registro de cambios relevantes de `web-design`.
 - Flag `audit_2_passed` retirado de `04-html-design.md` (pertenece a Gate 2 / plantilla 03).
 - `workflows/README.md` deja de reenviar agentes al lifecycle Expo/RN.
 
-### Changed
+### Changed (auditoría)
 
 - Plantillas 01–04 de stubs vacíos a contratos parseables (RTM, BDD, MOD-DIR, gates 3A/3B).
 

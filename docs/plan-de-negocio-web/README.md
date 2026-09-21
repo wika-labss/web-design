@@ -1,11 +1,34 @@
-# Plan de negocio web — índice
+# Plan de negocio web — consultor / verificador
 
-Tesis comercial (humanos) y contrato operativo (agentes / gates). **Una plataforma, muchas instancias.** SKU solo `A` o `B`. No hay tercer modelo (`portfolio` no es SKU: si no cabe, es no-go).
+Este pack **no forma parte** del ciclo de creación de un sitio.
 
-| Capa | Archivo | Para qué |
-|------|---------|----------|
-| Tesis | [plan-de-negocio.md](plan-de-negocio.md) | Modelos A/B, infra, costos, proyección |
-| Contrato | [`standards/sku-contract.yaml`](../../standards/sku-contract.yaml) | SKU, stack, `forbidden_v1`, kill switches |
-| Instancia | [`templates/05-build-plan.md`](../../templates/05-build-plan.md) | Hoja de ruta, dependencias y stack del tenant |
+```text
+01–05 → gates → Fase 1 HTML → Fase 2 taste-skill → release
+```
 
-Clasificación en Gate 1: `sku` en `01-problem.md` y `02-features.md` (deben coincidir). Construcción y release se validan contra el contrato, no contra un stack inventado por el proyecto.
+Ese flujo no lee este directorio ni `standards/sku-contract.yaml` para generar HTML o diseño. No hay flag YAML. No hay skill de diseño.
+
+## Rol
+
+| Puede | No puede |
+|-------|----------|
+| Leer `idea/`, `audits/`, `iterations/` | Generar o editar HTML/CSS |
+| Clasificar el caso como A / B / híbrido / fuera de SKU | Invocar taste-skill ni cambiar `direction_skill` |
+| Emitir un informe de estado comercial | Activar gates (`audit_*_passed`, `ready_for_construction`, …) |
+| Recomendar precio, alcance o “esto no es producto WIKA” | Meter CMS, panel o “un campo más” en 01–05 |
+
+El único artefacto es:
+
+`proyectos/web/{proyecto}/negocio/informe-estado-negocio.md`
+
+Si esa carpeta no existe, el sitio **igual** se construye. El informe es consultoría, no gate.
+
+## Cómo se usa
+
+| Capa | Archivo |
+|------|---------|
+| Rol | este README |
+| Procedimiento | [`consulta-negocio.md`](consulta-negocio.md) |
+| Plantilla de salida | [`informe-estado-negocio.md`](informe-estado-negocio.md) |
+| Criterio comercial | [`plan-de-negocio.md`](plan-de-negocio.md) |
+| Criterio machine-readable | [`standards/sku-contract.yaml`](../../standards/sku-contract.yaml) (solo el consultor) |

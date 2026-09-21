@@ -1,6 +1,7 @@
-# Contrato operativo A/B extraído del plan de negocio.
+# Criterio del consultor de negocio (no es quality gate).
 # Tesis: docs/plan-de-negocio-web/plan-de-negocio.md
-# No es un segundo plan: es lo que gates y agentes deben cumplir.
+# Uso: solo docs/plan-de-negocio-web/consulta-negocio.md → informe en negocio/.
+# No condiciona Fase 1, Fase 2 ni templates 01–05.
 version: "0.1.0"
 source: docs/plan-de-negocio-web/plan-de-negocio.md
 thesis: una_plataforma_muchas_instancias

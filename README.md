@@ -1,13 +1,13 @@
 # web-design
 
-Repositorio oficial WIKA para **páginas web y su diseño**: plantillas documentales (01–05), SKU A/B del plan de negocio, quality gates, resolución de dirección visual vía `MOD-DIR`, y skills de [taste-skill](https://github.com/Leonxlnx/taste-skill) como submodule.
+Repositorio oficial WIKA para **páginas web y su diseño**: plantillas documentales (01–05), quality gates, resolución de dirección visual vía `MOD-DIR`, y skills de [taste-skill](https://github.com/Leonxlnx/taste-skill) como submodule.
 
-Complementa [`wika-fundaments`](https://github.com/wika-labss/wika-fundaments) (SCOS global). Los sitios concretos viven en `proyectos/web/{proyecto}/` (un tenant A o B sobre una plataforma).
+Complementa [`wika-fundaments`](https://github.com/wika-labss/wika-fundaments) (SCOS global). Los sitios concretos viven en `proyectos/web/{proyecto}/`.
 
 **Flujo:**
 
 ```text
-docs 01–05 + SKU A|B → gates → Fase 1 HTML vs contrato → Fase 2 taste-skill → release
+docs 01–05 → gates → Fase 1 HTML semántico → Fase 2 taste-skill → release
 ```
 
 Fase 1: construcción (HTML semántico, sin diseño final).  
@@ -15,7 +15,7 @@ Fase 2: diseño (skills taste-skill según `direction_skill` en `03-module-disco
 
 Ciclo oficial: [`workflows/application-lifecycle.md`](workflows/application-lifecycle.md)  
 Instructivo: [`docs/instructivo-nuevos-usuarios.md`](docs/instructivo-nuevos-usuarios.md)  
-Plan de negocio (modelos A/B) y contrato: [`docs/plan-de-negocio-web/README.md`](docs/plan-de-negocio-web/README.md)
+Consultor de negocio (informe, **no** es paso de creación): [`docs/plan-de-negocio-web/README.md`](docs/plan-de-negocio-web/README.md)
 
 ---
 
@@ -28,7 +28,7 @@ web-design/
 ├── CONTRIBUTING.md
 ├── ROADMAP.md
 ├── .cursorrules                 # Quality gates para agentes IA
-├── agents/                      # Roles Fase 1 / Fase 2
+├── agents/                      # Roles Fase 1 / Fase 2 / consultor
 ├── docs/                        # Guías y auditorías oficiales
 │   ├── instructivo-nuevos-usuarios.md
 │   ├── documentation.md
@@ -36,8 +36,8 @@ web-design/
 │   ├── auditoria-modulos.md
 │   ├── auditoria-ensamblado.md
 │   ├── auditoria-release-v1.md
-│   └── plan-de-negocio-web/
-├── standards/                   # direction-matrix.yaml + sku-contract.yaml
+│   └── plan-de-negocio-web/     # consultor; no es paso de creación
+├── standards/                   # direction-matrix.yaml; sku-contract.yaml (solo consultor)
 ├── templates/                   # 01–05
 │   ├── 01-problem.md
 │   ├── 02-features.md

@@ -2,7 +2,9 @@
 
 ## Objetivo
 
-Validar que el sitio fue descompuesto en módulos reutilizables (secciones, navegación, formularios, CMS si aplica) y que **MOD-DIR** dejó una dirección visual bloqueada.
+Validar que el sitio fue descompuesto en módulos reutilizables (secciones, navegación, formularios, CMS si el **sitio** lo pide) y que **MOD-DIR** dejó una dirección visual bloqueada.
+
+El plan de negocio / SKU A/B **no** es entrada de este gate.
 
 ---
 
@@ -11,17 +13,10 @@ Validar que el sitio fue descompuesto en módulos reutilizables (secciones, nave
 - 01-problem.md
 - 02-features.md
 - 03-module-discovery.md
-- `standards/sku-contract.yaml`
 
 ---
 
 # Validaciones
-
-## SKU
-
-- `sku` de 03 coincide con 01 y 02 (`A` o `B`).
-- Módulo de admin / CMS (`mod-admin`, `/admin`, magic link) **solo si `sku: A`**.
-- Si `sku: B` y existe módulo de panel → `REQUIERE REVISIÓN`.
 
 ## Cobertura
 
@@ -50,7 +45,7 @@ Cada módulo debe cumplir:
 ## Dependencias
 
 - Dependencias identificadas.
-- Integraciones identificadas (WhatsApp, forms, Maps; CMS **solo A**).
+- Integraciones identificadas (WhatsApp, forms, Maps, CMS si `site_type: cms`).
 - Riesgos identificados.
 
 ---

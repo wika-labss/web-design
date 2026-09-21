@@ -2,7 +2,9 @@
 
 ## Objetivo
 
-Validar que el diseño HTML estructural y el plan de construcción permiten integrar los módulos **antes** de escribir HTML de producción (Fase 1), **sin violar el plan de negocio**.
+Validar que el diseño HTML estructural y el plan de construcción permiten integrar los módulos **antes** de escribir HTML de producción (Fase 1).
+
+El plan de negocio WIKA **no** es criterio de este gate.
 
 ---
 
@@ -11,26 +13,14 @@ Validar que el diseño HTML estructural y el plan de construcción permiten inte
 - 03-module-discovery.md
 - 04-html-design.md
 - 05-build-plan.md
-- `standards/sku-contract.yaml`
 
 ---
 
 # Validaciones
 
-## SKU y stack
-
-- `sku` de 01, 02, 03, 04 y 05 coincide (`A` o `B`).
-- `cms` en 05 es `false` si B y `true` si A.
-- Stack de 05 = tabla canónica del contrato (Workers, Cloudflare for SaaS, D1, R2). No Vercel, VPS, WordPress, ni repo por cliente.
-- SKU B: sin módulos CMS, sin `/admin`, sin magic link en 04/05.
-- SKU A: panel de schema fijo; no admin custom infinito.
-- Híbrido (“landing con un panel chico”) → `REQUIERE CORRECCIONES`.
-
----
-
 ## Arquitectura
 
-- Arquitectura definida como **tenant** de la plataforma, no aplicación aislada.
+- Arquitectura definida (secciones, form, estático vs editable **del sitio**).
 - Componentes/secciones identificados.
 - Integraciones documentadas.
 
@@ -41,7 +31,6 @@ Validar que el diseño HTML estructural y el plan de construcción permiten inte
 - Todos los módulos de 03 están incorporados en 04.
 - No existen módulos sin uso.
 - No existen dependencias circulares.
-- `mod-admin` presente **solo** si `sku: A`.
 
 ---
 
@@ -84,7 +73,7 @@ Al aprobar ensamblado, el arquitecto debe:
 
 ## APROBADO
 
-Puede comenzar la Fase 1 (HTML semántico) respetando el SKU.
+Puede comenzar la Fase 1 (HTML semántico).
 
 ## REQUIERE CORRECCIONES
 
@@ -94,4 +83,4 @@ Debe corregirse el diseño o el plan antes de construir.
 
 # Regla
 
-No se permite generar HTML de producción sin aprobar esta auditoría ni construir un SKU distinto al de Gate 1.
+No se permite generar HTML de producción sin aprobar esta auditoría.

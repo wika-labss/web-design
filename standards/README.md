@@ -4,11 +4,13 @@ Estándares técnicos y visuales para sitios web bajo WIKA.
 
 **Ruta canónica de sitios:** `proyectos/web/{proyecto}/`.
 
-Tokens web (`design-system.md`) y coding standards — pendientes (ver ROADMAP). Hasta entonces: dirección visual = matriz + MOD-DIR; producto A/B = `sku-contract.yaml`.
+Tokens web (`design-system.md`) y coding standards — pendientes (ver ROADMAP). Hasta entonces: dirección visual = matriz + MOD-DIR.
 
 ## sku-contract.yaml
 
-Contrato machine-readable del [plan de negocio](../docs/plan-de-negocio-web/plan-de-negocio.md). Cada sitio en `proyectos/web/{proyecto}/` es un **tenant** con `sku: A` o `sku: B`. El stack no se inventa por proyecto.
+Criterio **machine-readable del consultor de negocio**, no de Fase 1/2. Tesis: [plan-de-negocio.md](../docs/plan-de-negocio-web/plan-de-negocio.md). Procedimiento: [consulta-negocio.md](../docs/plan-de-negocio-web/consulta-negocio.md).
+
+No es quality gate. No se usa para elegir HTML, CMS ni `direction_skill`.
 
 Índice: [docs/plan-de-negocio-web/README.md](../docs/plan-de-negocio-web/README.md).
 

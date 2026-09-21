@@ -1,5 +1,10 @@
 # Plan de negocio — web pymes (modelos A y B)
 
+> **Rol:** criterio del **consultor / verificador**, no del flujo de creación.  
+> No uses este documento para elegir HTML, CMS, `direction_skill` ni para aprobar gates.  
+> Procedimiento: [`consulta-negocio.md`](consulta-negocio.md) → único output [`informe-estado-negocio.md`](informe-estado-negocio.md).  
+> Contrato de rol: [`README.md`](README.md).
+
 **Región:** Chile (CLP)  
 **Industria:** servicios digitales / hosting de sitios para pymes  
 **Fecha:** 2026-09-16  

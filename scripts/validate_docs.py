@@ -40,8 +40,10 @@ REQUIRED_FILES = (
     "docs/auditoria-release-v1.md",
     "docs/documentation.md",
     "docs/instructivo-nuevos-usuarios.md",
-    "docs/plan-de-negocio-web/plan-de-negocio.md",
     "docs/plan-de-negocio-web/README.md",
+    "docs/plan-de-negocio-web/consulta-negocio.md",
+    "docs/plan-de-negocio-web/informe-estado-negocio.md",
+    "docs/plan-de-negocio-web/plan-de-negocio.md",
     "workflows/application-lifecycle.md",
     "templates/01-problem.md",
     "templates/02-features.md",
@@ -248,21 +250,16 @@ def validate_gate_flags(root: Path = REPO_ROOT) -> list[Finding]:
                     "falta flag `ready_for_construction`",
                 )
             )
-        if "sku-contract.yaml" not in build:
-            errors.append(
-                Finding(
-                    "templates/05-build-plan.md",
-                    "no referencia `standards/sku-contract.yaml`",
-                )
-            )
     for rel in ("templates/01-problem.md", "templates/02-features.md"):
         path = root / rel
         if not path.is_file():
             errors.append(Finding(rel, "plantilla ausente"))
             continue
         text = path.read_text(encoding="utf-8")
-        if not re.search(r"^sku:", text, re.MULTILINE):
-            errors.append(Finding(rel, "falta frontmatter `sku`"))
+        if rel.endswith("02-features.md") and not re.search(
+            r"^site_type:", text, re.MULTILINE
+        ):
+            errors.append(Finding(rel, "falta frontmatter `site_type`"))
     mod_path = root / "templates/03-module-discovery.md"
     if not mod_path.is_file():
         errors.append(Finding("templates/03-module-discovery.md", "plantilla ausente"))
@@ -295,8 +292,10 @@ def validate_cursorrules(root: Path = REPO_ROOT) -> list[Finding]:
             errors.append(Finding(".cursorrules", f"no declara gate `{flag}`"))
     if "Fase 1" not in text or "Fase 2" not in text:
         errors.append(Finding(".cursorrules", "no declara contrato Fase 1 / Fase 2"))
-    if "sku-contract.yaml" not in text:
-        errors.append(Finding(".cursorrules", "no referencia `sku-contract.yaml`"))
+    if "fuera de gates" not in text.lower() and "consultor" not in text.lower():
+        errors.append(
+            Finding(".cursorrules", "no declara el plan de negocio fuera de gates")
+        )
     if "05-build-plan.md" not in text:
         errors.append(Finding(".cursorrules", "Gate 3B no incluye `05-build-plan.md`"))
     return errors

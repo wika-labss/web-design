@@ -33,5 +33,5 @@ Las plantillas oficiales viven en `templates/` con numeración:
 05-build-plan.md
 ```
 
-`sku` solo `A` o `B` en 01 y 02 (deben coincidir). `audit_2_passed` solo en 03. `audit_3_passed` en 04. `ready_for_construction` en **05**.
+`audit_2_passed` solo en 03. `audit_3_passed` en 04. `ready_for_construction` en **05**. El SKU comercial A/B no se escribe en las plantillas 01–05.
 

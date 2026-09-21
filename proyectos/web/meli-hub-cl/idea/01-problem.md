@@ -1,12 +1,12 @@
 ---
 id: "WEB-PROB-MELI-001"
 title: "Meli Hub CL — Definición del Problema"
-status: "BORRADOR"
+status: "APROBADO"
 version: "0.1.0"
 owner: "Vissiuss"
 created_at: "2026-09-21"
 updated_at: "2026-09-21"
-audit_1_passed: false
+audit_1_passed: true
 sku: "A"
 sku_rationale: "Panel /admin con magic link para el operador del seller; contenido y catálogo ML cambian con frecuencia."
 sku_exception: "meli_ops_hub"
@@ -26,7 +26,7 @@ brand_tone: "ejecutivo, confiable, eficiente"
 - **Nombre del Proyecto:** Meli Hub CL — Panel ejecutivo Mercado Libre Chile
 - **Repositorio de aplicación:** `proyectos/web/meli-hub-cl/`
 - **Stakeholders clave:** Vissiuss (ingeniería), operador/vendedor MLC, Arquitecto WIKA
-- **Estado de gatekeeping:** `PENDIENTE_AUDITORIA_DOCUMENTACION`
+- **Estado de gatekeeping:** `AUDITORIA_DOCUMENTACION_APROBADA`
 - **industry_type (MOD-DIR):** `b2b_saas`
 - **sku:** `A` — instancia con panel `/admin` sobre plataforma Workers + D1 + R2
 
@@ -61,7 +61,7 @@ El contrato SKU A prohíbe `catalogo_grande`. Este tenant es un **hub de operaci
 
 **Justificación de negocio:** El vendedor chileno opera en Mercado Libre pero carece de un panel unificado para publicar productos, ver ventas, responder preguntas y gestionar devoluciones sin alternar entre Seller Central y hojas de cálculo.
 
-**Estado:** Pendiente revisión del Arquitecto WIKA — ver `audits/auditoria-documentacion.md`.
+**Estado:** **APROBADO** — excepción `meli_ops_hub` sobre SKU A (2026-09-21). Ver `audits/auditoria-documentacion.md`.
 
 ---
 

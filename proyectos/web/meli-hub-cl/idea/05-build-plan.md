@@ -1,16 +1,16 @@
 ---
 id: "WEB-BUILD-MELI-001"
 title: "Meli Hub CL — Plan de Construcción"
-status: "BORRADOR"
+status: "APROBADO"
 version: "0.1.0"
 owner: "Vissiuss"
 created_at: "2026-09-21"
 updated_at: "2026-09-21"
-audit_1_passed: false
-audit_2_passed: false
-visual_approval_passed: false
-audit_3_passed: false
-ready_for_construction: false
+audit_1_passed: true
+audit_2_passed: true
+visual_approval_passed: true
+audit_3_passed: true
+ready_for_construction: true
 sku: "A"
 cms: true
 sku_exception: "meli_ops_hub"
@@ -102,10 +102,10 @@ sku_exception: "meli_ops_hub"
 
 ## 6. Verificación de pre-requisitos
 
-- [ ] Auditoría Documentación: `audit_1_passed == true` (incluye excepción SKU)
-- [ ] Auditoría Módulos: `audit_2_passed == true`
-- [ ] Aprobación visual: `visual_approval_passed == true`
-- [ ] Auditoría Ensamblado: `audit_3_passed == true`
-- [ ] Stack = `sku-contract.yaml` + `06-ml-api-contract.md`
+- [x] Auditoría Documentación: `audit_1_passed == true` (incluye excepción SKU)
+- [x] Auditoría Módulos: `audit_2_passed == true`
+- [x] Aprobación visual: `visual_approval_passed == true`
+- [x] Auditoría Ensamblado: `audit_3_passed == true`
+- [x] Stack = `sku-contract.yaml` + `06-ml-api-contract.md`
 
-`ready_for_construction: true` **solo el arquitecto** tras gates completos.
+`ready_for_construction: true` — activado por arquitecto (2026-09-21).

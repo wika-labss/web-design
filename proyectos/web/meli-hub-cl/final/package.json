@@ -1,0 +1,19 @@
+{
+  "name": "meli-hub-cl",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:agent": "./scripts/dev-env.sh",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 execute meli_hub_db --local --file=./schema.sql",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250214.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5",
+    "wrangler": "^3.109.1"
+  }
+}

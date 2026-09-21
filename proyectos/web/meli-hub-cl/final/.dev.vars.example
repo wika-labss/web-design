@@ -1,0 +1,8 @@
+# Copiar: cp ../setup/credentials.env.template .dev.vars
+# Documentación: ../docs/SETUP-v1.md
+
+SESSION_SECRET=dev-meli-hub-cl-agent-session-secret-2026
+MELI_CLIENT_ID=202815009388102
+MELI_CLIENT_SECRET=PEGAR_SECRET_DESDE_DEVCENTER_ML
+MELI_REDIRECT_URI=https://TU-HOST-PUBLICO/oauth/meli/callback
+ADMIN_EMAIL=admin@meli-hub.local

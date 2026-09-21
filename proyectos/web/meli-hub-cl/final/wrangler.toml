@@ -1,0 +1,24 @@
+name = "meli-hub-cl"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+TENANT_ID = "meli-hub-cl"
+MELI_SITE_ID = "MLC"
+MELI_CURRENCY_ID = "CLP"
+MELI_AUTH_URL = "https://auth.mercadolibre.cl/authorization"
+MELI_API_BASE = "https://api.mercadolibre.com"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "meli_hub_db"
+database_id = "00000000-0000-0000-0000-000000000001"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "meli-hub-assets"
+
+[assets]
+directory = "./public"
+binding = "ASSETS_STATIC"

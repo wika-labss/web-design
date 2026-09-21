@@ -1,14 +1,14 @@
 ---
 id: "WEB-HTML-MELI-001"
 title: "Meli Hub CL — Diseño HTML y Aprobación Visual"
-status: "BORRADOR"
+status: "APROBADO"
 version: "0.1.0"
 owner: "Vissiuss"
 created_at: "2026-09-21"
 updated_at: "2026-09-21"
-visual_approval_passed: false
-audit_3_passed: false
-construction_phase_complete: false
+visual_approval_passed: true
+audit_3_passed: true
+construction_phase_complete: true
 direction_skill: "minimalist-ui"
 sku: "A"
 ---
@@ -23,7 +23,7 @@ sku: "A"
 - **Nombre del Proyecto:** Meli Hub CL
 - **Documentos base:** `01-problem.md` | `02-features.md` | `03-module-discovery.md` | `05-build-plan.md`
 - **sku:** `A`
-- **Estado de gatekeeping:** `PENDIENTE_APROBACION_VISUAL`
+- **Estado de gatekeeping:** `APROBACION_VISUAL_Y_ENSAMBLADO_APROBADOS`
 - **direction_skill:** `minimalist-ui` (MOD-DIR)
 
 ---

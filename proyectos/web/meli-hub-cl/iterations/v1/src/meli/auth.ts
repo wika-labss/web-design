@@ -2,6 +2,10 @@ import type { Env } from "../env";
 import { consumePkceState, saveMeliTokens, savePkceState } from "../db";
 import { buildPkceChallenge, generatePkce } from "./client";
 
+function adminRedirect(url: URL, query: string): Response {
+  return Response.redirect(`${url.origin}/admin?${query}`, 302);
+}
+
 export async function startOAuth(env: Env, tenantId: string, origin: string): Promise<Response> {
   const state = crypto.randomUUID();
   const { verifier } = generatePkce();

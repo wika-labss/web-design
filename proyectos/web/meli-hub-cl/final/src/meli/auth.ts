@@ -2,6 +2,10 @@ import type { Env } from "../env";
 import { consumePkceState, saveMeliTokens, savePkceState } from "../db";
 import { buildPkceChallenge, generatePkce } from "./client";
 
+function adminRedirect(url: URL, query: string): Response {
+  return Response.redirect(`${url.origin}/admin?${query}`, 302);
+}
+
 export async function startOAuth(env: Env, tenantId: string, origin: string): Promise<Response> {
   const state = crypto.randomUUID();
   const { verifier } = generatePkce();
@@ -32,15 +36,15 @@ export async function handleOAuthCallback(
   const error = url.searchParams.get("error");
 
   if (error) {
-    return Response.redirect(`/admin?oauth_error=${encodeURIComponent(error)}`, 302);
+    return adminRedirect(url, `oauth_error=${encodeURIComponent(error)}`);
   }
   if (!code || !state) {
-    return Response.redirect("/admin?oauth_error=missing_code", 302);
+    return adminRedirect(url, "oauth_error=missing_code");
   }
 
   const pkce = await consumePkceState(env.DB, state);
   if (!pkce) {
-    return Response.redirect("/admin?oauth_error=invalid_state", 302);
+    return adminRedirect(url, "oauth_error=invalid_state");
   }
 
   const redirectUri = env.MELI_REDIRECT_URI || `${url.origin}/oauth/meli/callback`;
@@ -62,7 +66,7 @@ export async function handleOAuthCallback(
   const data = (await tokenResponse.json()) as Record<string, unknown>;
   if (!tokenResponse.ok) {
     const msg = String(data.error ?? "token_exchange_failed");
-    return Response.redirect(`/admin?oauth_error=${encodeURIComponent(msg)}`, 302);
+    return adminRedirect(url, `oauth_error=${encodeURIComponent(msg)}`);
   }
 
   await saveMeliTokens(
@@ -74,7 +78,7 @@ export async function handleOAuthCallback(
     Number(data.expires_in ?? 21600)
   );
 
-  return Response.redirect("/admin?oauth=connected", 302);
+  return adminRedirect(url, "oauth=connected");
 }
 
 export async function getConnectionStatus(env: Env, tenantId: string) {

@@ -17,7 +17,10 @@ export default {
       return startOAuth(env, tenantId, url.origin);
     }
 
-    if (url.pathname === "/oauth/meli/callback" && request.method === "GET") {
+    if (
+      url.pathname === "/oauth/meli/callback" &&
+      (request.method === "GET" || request.method === "POST")
+    ) {
       return handleOAuthCallback(env, url);
     }
 

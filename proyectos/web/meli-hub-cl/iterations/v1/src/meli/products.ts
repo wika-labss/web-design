@@ -1,9 +1,10 @@
 import type { Env } from "../env";
 import { getMeliTokens, listItems, upsertItem } from "../db";
-import { meliFetch, meliJson } from "./client";
+import { meliFetch, meliJson, MeliApiError } from "./client";
 
 export interface ItemInput {
-  title: string;
+  title?: string;
+  family_name?: string;
   category_id: string;
   price: number;
   available_quantity: number;
@@ -13,9 +14,23 @@ export interface ItemInput {
   attributes?: Array<{ id: string; value_name: string }>;
 }
 
+export interface MenuUploadItem extends ItemInput {
+  sku?: string;
+}
+
+export interface MenuUploadResult {
+  index: number;
+  sku?: string;
+  family_name?: string;
+  ok: boolean;
+  item_id?: string;
+  errors?: unknown;
+}
+
 function buildItemPayload(env: Env, input: ItemInput) {
-  return {
-    title: input.title,
+  const useUserProducts = Boolean(input.family_name);
+  const payload: Record<string, unknown> = {
+    site_id: env.MELI_SITE_ID,
     category_id: input.category_id,
     price: input.price,
     currency_id: env.MELI_CURRENCY_ID,
@@ -25,6 +40,43 @@ function buildItemPayload(env: Env, input: ItemInput) {
     condition: input.condition,
     pictures: input.pictures ?? [],
     attributes: input.attributes ?? [],
+  };
+
+  if (useUserProducts) {
+    payload.family_name = input.family_name;
+  } else if (input.title) {
+    payload.title = input.title;
+  }
+
+  return payload;
+}
+
+function defaultFoodAttributes(name: string) {
+  return [
+    { id: "MANUFACTURER", value_name: "Meli Hub" },
+    { id: "BRAND", value_name: "Genérica" },
+    { id: "PRODUCT_NAME", value_name: name },
+  ];
+}
+
+export function normalizeMenuItem(raw: MenuUploadItem, env: Env): ItemInput {
+  const name = raw.family_name ?? raw.title ?? "Producto menú";
+  return {
+    family_name: raw.family_name ?? name,
+    category_id: raw.category_id || "MLC1417",
+    price: Number(raw.price),
+    available_quantity: Number(raw.available_quantity ?? 1),
+    condition: raw.condition ?? "new",
+    listing_type_id: raw.listing_type_id,
+    pictures: raw.pictures?.length
+      ? raw.pictures
+      : [
+          {
+            source:
+              "https://http2.mlstatic.com/D_NQ_NP_2X_845183-MLA74385273994_012024-F.webp",
+          },
+        ],
+    attributes: raw.attributes?.length ? raw.attributes : defaultFoodAttributes(name),
   };
 }
 
@@ -46,12 +98,66 @@ export async function createItem(env: Env, tenantId: string, input: ItemInput) {
   }
 
   const payload = buildItemPayload(env, input);
-  const item = await meliJson<Record<string, unknown>>(env, tenantId, "/items", {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-  await upsertItem(env.DB, tenantId, item);
-  return { ok: true as const, item };
+  try {
+    const item = await meliJson<Record<string, unknown>>(env, tenantId, "/items", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    });
+    await upsertItem(env.DB, tenantId, item);
+    return { ok: true as const, item };
+  } catch (err) {
+    if (err instanceof MeliApiError) {
+      return { ok: false as const, errors: err.body ?? err.message };
+    }
+    throw err;
+  }
+}
+
+export async function uploadMenu(
+  env: Env,
+  tenantId: string,
+  items: MenuUploadItem[]
+): Promise<{ results: MenuUploadResult[]; published: number; failed: number }> {
+  const results: MenuUploadResult[] = [];
+
+  for (let index = 0; index < items.length; index++) {
+    const raw = items[index];
+    const normalized = normalizeMenuItem(raw, env);
+    try {
+      const result = await createItem(env, tenantId, normalized);
+      if (result.ok) {
+        results.push({
+          index,
+          sku: raw.sku,
+          family_name: normalized.family_name,
+          ok: true,
+          item_id: String(result.item.id),
+        });
+      } else {
+        results.push({
+          index,
+          sku: raw.sku,
+          family_name: normalized.family_name,
+          ok: false,
+          errors: result.errors,
+        });
+      }
+    } catch (err) {
+      results.push({
+        index,
+        sku: raw.sku,
+        family_name: normalized.family_name,
+        ok: false,
+        errors: err instanceof Error ? err.message : err,
+      });
+    }
+  }
+
+  return {
+    results,
+    published: results.filter((r) => r.ok).length,
+    failed: results.filter((r) => !r.ok).length,
+  };
 }
 
 export async function updateItem(
@@ -62,6 +168,7 @@ export async function updateItem(
 ) {
   const body: Record<string, unknown> = {};
   if (patch.title) body.title = patch.title;
+  if (patch.family_name) body.family_name = patch.family_name;
   if (patch.price != null) body.price = patch.price;
   if (patch.available_quantity != null) body.available_quantity = patch.available_quantity;
   if (patch.status) body.status = patch.status;

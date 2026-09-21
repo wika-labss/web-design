@@ -227,14 +227,53 @@ document.getElementById("dev-session")?.addEventListener("click", async () => {
   loadStatus();
 });
 
+function parseMeliError(errors) {
+  if (!errors) return "Error desconocido";
+  if (typeof errors === "string") return errors;
+  if (errors.message === "seller.unable_to_list") {
+    return "Cuenta ML no puede publicar: completa tu dirección en Mercado Libre (address_pending).";
+  }
+  return JSON.stringify(errors, null, 2);
+}
+
+document.getElementById("load-sample-menu")?.addEventListener("click", async () => {
+  const res = await fetch("/fixtures/sample-menu.json");
+  const data = await res.json();
+  document.getElementById("menu-json").value = JSON.stringify(data, null, 2);
+});
+
+document.getElementById("menu-upload-form")?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const out = document.getElementById("menu-upload-result");
+  try {
+    const payload = JSON.parse(document.getElementById("menu-json").value);
+    const items = payload.items ?? payload;
+    out.textContent = "Publicando menú...";
+    const result = await api("/api/menu/upload", {
+      method: "POST",
+      body: JSON.stringify({ items }),
+    });
+    out.textContent = `Publicados: ${result.published} | Fallidos: ${result.failed}\n${JSON.stringify(result.results, null, 2)}`;
+    if (result.published > 0) {
+      toast(`Menú: ${result.published} ítem(s) publicados`);
+      loadItems(true);
+    } else {
+      toast("Menú no publicado — revisa errores");
+    }
+  } catch (err) {
+    out.textContent = err.message;
+  }
+});
+
 document.getElementById("validate-item")?.addEventListener("click", async () => {
   const form = document.getElementById("item-form");
   const body = Object.fromEntries(new FormData(form));
   body.price = Number(body.price);
   body.available_quantity = Number(body.available_quantity);
+  delete body.title;
   const result = await api("/api/items/validate", { method: "POST", body: JSON.stringify(body) });
   const msg = document.getElementById("item-form-message");
-  msg.textContent = result.valid ? "Validación OK — listo para publicar" : JSON.stringify(result.errors);
+  msg.textContent = result.valid ? "Validación OK — listo para publicar" : parseMeliError(result.errors);
 });
 
 document.getElementById("item-form")?.addEventListener("submit", async (e) => {
@@ -243,6 +282,7 @@ document.getElementById("item-form")?.addEventListener("submit", async (e) => {
   const body = Object.fromEntries(new FormData(form));
   body.price = Number(body.price);
   body.available_quantity = Number(body.available_quantity);
+  delete body.title;
   const result = await api("/api/items", { method: "POST", body: JSON.stringify(body) });
   const msg = document.getElementById("item-form-message");
   if (result.ok) {
@@ -250,7 +290,7 @@ document.getElementById("item-form")?.addEventListener("submit", async (e) => {
     form.reset();
     loadItems();
   } else {
-    msg.textContent = JSON.stringify(result.errors);
+    msg.textContent = parseMeliError(result.errors);
   }
 });
 

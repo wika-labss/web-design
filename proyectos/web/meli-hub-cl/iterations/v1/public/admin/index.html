@@ -52,16 +52,31 @@
           <button type="button" class="btn btn-secondary btn-sm" id="sync-items">Sincronizar</button>
         </header>
 
+        <form id="menu-upload-form" class="card form-card" aria-labelledby="menu-upload-heading">
+          <h2 id="menu-upload-heading">Subir menú (lote)</h2>
+          <p class="form-message">JSON con ítems del menú. Usa <code>family_name</code> (User Products MLC). Categoría alimentos: <code>MLC1417</code>.</p>
+          <div class="field">
+            <label for="menu-json">Menú JSON</label>
+            <textarea id="menu-json" rows="12" aria-describedby="menu-upload-help"></textarea>
+          </div>
+          <p id="menu-upload-help" class="form-message">Precio mínimo MLC alimentos: 650 CLP. Imagen por defecto si omites <code>pictures</code>.</p>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" id="load-sample-menu">Cargar menú ejemplo</button>
+            <button type="submit" class="btn btn-primary">Publicar menú en ML</button>
+          </div>
+          <pre id="menu-upload-result" class="form-message" aria-live="polite"></pre>
+        </form>
+
         <form id="item-form" class="card form-card" aria-labelledby="new-item-heading">
-          <h2 id="new-item-heading">Nueva publicación</h2>
+          <h2 id="new-item-heading">Nueva publicación (individual)</h2>
           <div class="form-grid">
             <div class="field">
-              <label for="item-title">Título</label>
-              <input id="item-title" name="title" type="text" required maxlength="60">
+              <label for="item-family-name">Nombre producto (family_name)</label>
+              <input id="item-family-name" name="family_name" type="text" required maxlength="60" placeholder="Ej. Empanada de pino">
             </div>
             <div class="field">
               <label for="item-category">Category ID (MLC)</label>
-              <input id="item-category" name="category_id" type="text" required placeholder="MLC1234">
+              <input id="item-category" name="category_id" type="text" required value="MLC1417" placeholder="MLC1417">
             </div>
             <div class="field">
               <label for="item-price">Precio (CLP)</label>

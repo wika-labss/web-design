@@ -7,8 +7,10 @@ import {
   getCachedItems,
   syncItemsFromMeli,
   updateItem,
+  uploadMenu,
   validateItem,
   type ItemInput,
+  type MenuUploadItem,
 } from "../meli/products";
 import { answerQuestion, getCachedQuestions, syncQuestionsFromMeli } from "../meli/questions";
 import { getCachedOrders, syncMissedFeeds } from "../meli/orders";
@@ -53,6 +55,16 @@ export async function handleApi(
     const body = (await request.json()) as ItemInput;
     const result = await createItem(env, tenantId, body);
     return json(result, result.ok ? 201 : 422);
+  }
+
+  if (path === "/api/menu/upload" && request.method === "POST") {
+    const body = (await request.json()) as { items?: MenuUploadItem[] };
+    const items = body.items ?? [];
+    if (!items.length) {
+      return json({ error: "items_required" }, 400);
+    }
+    const result = await uploadMenu(env, tenantId, items);
+    return json(result, result.failed === items.length ? 422 : 200);
   }
 
   const itemMatch = path.match(/^\/api\/items\/([^/]+)$/);

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
+    "dev:agent": "./scripts/dev-env.sh",
     "deploy": "wrangler deploy",
     "db:migrate": "wrangler d1 execute meli_hub_db --local --file=./schema.sql",
     "typecheck": "tsc --noEmit",

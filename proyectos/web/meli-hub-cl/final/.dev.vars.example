@@ -1,0 +1,5 @@
+SESSION_SECRET=genera-un-string-aleatorio-largo
+MELI_CLIENT_ID=tu_app_id_ml
+MELI_CLIENT_SECRET=tu_secret_ml
+MELI_REDIRECT_URI=https://TU-TUNEL.trycloudflare.com/oauth/meli/callback
+ADMIN_EMAIL=admin@meli-hub.local
